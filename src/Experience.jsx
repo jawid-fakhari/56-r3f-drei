@@ -1,10 +1,11 @@
-import { OrbitControls, PivotControls, TransformControls } from "@react-three/drei"
+import { Html, OrbitControls, PivotControls, TransformControls } from "@react-three/drei"
 import { useRef } from "react"
 
 
 export default function Experience() {
     const cubeRef = useRef()
-    const sphereGeometry = useRef()
+    const sphereRef = useRef()
+
     return <>
         <OrbitControls makeDefault />
         <directionalLight position={[1, 2, 3]} intensity={4.5} />
@@ -15,13 +16,25 @@ export default function Experience() {
             anchor={[0, 0, 0]} //anchor lo mette al centro
             depthTest={false} //depthTest visibile anche all'interno del oggetto
             lineWidth={4} //lareghezza delle linee del pivot
-            axisColors={['purpule', 'black', 'white']}
+            // axisColors={['purpule', 'black', 'white']}
             scale={100} // senza fixed scale normale, con fixed scale in base ai pixel
             fixed={true} // il pivot rimane sempre uguale 
         >
-            <mesh ref={sphereGeometry} position-x={- 2}>
+            <mesh ref={sphereRef} position-x={- 2}>
                 <sphereGeometry />
                 <meshStandardMaterial color="orange" />
+
+                {/* all'interno di questo tag aggiungiamo il testo */}
+                {/* Html puo essere aggiunto a tutto cio che inherita Object3D */}
+                <Html
+                    position={[1, 1, 0]}
+                    wrapperClass="label" //class per utilizzare in css
+                    center //centra il testo sul suo punto di posizione
+                    distanceFactor={8} //in base alla zoom cambia la grandezza
+                    occlude={[sphereRef, cubeRef]} //nasconde dietro gli oggeti indicati
+                >
+                    It's a sphere
+                </Html>
             </mesh>
         </PivotControls>
 
@@ -30,6 +43,7 @@ export default function Experience() {
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
         </mesh>
+
         {/* si puo aggiungere mode= "scale" /"rotaion" */}
         <TransformControls object={cubeRef} mode="translate" />
 
@@ -37,5 +51,6 @@ export default function Experience() {
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
         </mesh>
+
     </>
 }
