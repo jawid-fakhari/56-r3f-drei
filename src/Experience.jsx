@@ -1,7 +1,6 @@
-import { Html, OrbitControls, PivotControls, Text, TransformControls } from "@react-three/drei"
+import { Float, Html, OrbitControls, PivotControls, Text, TransformControls } from "@react-three/drei"
 import { useRef } from "react"
 import { DoubleSide } from "three"
-
 
 export default function Experience() {
     const cubeRef = useRef()
@@ -53,19 +52,24 @@ export default function Experience() {
             <meshStandardMaterial color="greenyellow" />
         </mesh>
 
-        {/* TEXT helper */}
-        <Text
-            font="./bangers-v20-latin-regular.woff"
-            color="salmon"
-            position={[0, 2, 0]}
-            maxWidth={2} //larghezza del textarea
-            textAlign="center"
-            fontSize={0.5}
+        {/*Float, TEXT helper */}
+        <Float
+            speed={5}
+            floatIntensity={2}
         >
-            This is Text Helper
-            {/* possiamo aggiungere anche materiali al testo */}
-            <meshNormalMaterial side={DoubleSide} />
-        </Text>
+            <Text
+                font="./bangers-v20-latin-regular.woff"
+                color="salmon"
+                position={[0, 2, 0]}
+                maxWidth={2} //larghezza del textarea
+                textAlign="center"
+                fontSize={0.5}
+            >
+                This is Text Helper
+                {/* possiamo aggiungere anche materiali al testo */}
+                <meshNormalMaterial side={DoubleSide} />
+            </Text>
+        </Float>
 
     </>
 }
